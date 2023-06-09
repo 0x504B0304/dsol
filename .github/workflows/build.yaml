@@ -82,3 +82,19 @@ jobs:
           cd ${RUNNER_WORKSPACE}/catkin_ws/src
           ln -s ${GITHUB_WORKSPACE}
           catkin build -j2 --no-status -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=17
+
+      - name: Zip the Build
+      run: zip -r ${{ secrets.ReleaseZipName }} ${RUNNER_WORKSPACE}/catkin_ws/
+
+      - name: Create Release and Upload Release Asset
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          tag_name: ${{ github.ref }}
+          name: Release ${{ github.ref }}
+          body: TODO New Release.
+          draft: false
+          prerelease: false
+          files: |
+            ${{ secrets.ReleaseZipName }}.zip
+            LICENSE 
