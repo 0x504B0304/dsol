@@ -84,7 +84,10 @@ jobs:
           catkin build -j2 --no-status -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=17
 
       - name: Zip the Build
-        run: zip -r ${RUNNER_WORKSPACE}/x86.zip ${RUNNER_WORKSPACE}/catkin_ws/
+        run: |
+          zip -q -r x86.zip ${RUNNER_WORKSPACE}/catkin_ws/
+          pwd
+          ls
 
       - name: Create Release and Upload Release Asset
         uses: softprops/action-gh-release@v1
@@ -96,5 +99,5 @@ jobs:
           draft: false
           prerelease: false
           files: |
-            ${RUNNER_WORKSPACE}/x86.zip
+            x86.zip
             LICENSE 
