@@ -24,7 +24,7 @@ jobs:
       - name: Apt dependencies
         run: |
           apt-get update
-          apt-get install -qy g++ libeigen3-dev git python3-catkin-tools
+          apt-get install -qy g++ libeigen3-dev git python3-catkin-tools zip
           rosdep update
           rosdep install --from-paths . --ignore-src -y -r --as-root apt:false
 
